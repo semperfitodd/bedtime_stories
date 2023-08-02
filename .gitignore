@@ -1,0 +1,24 @@
+# Build directory
+terraform/webapp/bedtime-stories/
+
+# Local .terraform directories
+**/.terraform/*
+
+# Local terraform files
+.terraform.lock.hcl
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+*.tfvars
+
+# plan files
+plan.out
+*.zip
+
+.idea
+.iml
+
+.DS_Store

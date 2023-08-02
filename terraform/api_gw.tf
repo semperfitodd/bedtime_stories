@@ -80,7 +80,7 @@ resource "aws_api_gateway_integration_response" "options" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
     "method.response.header.Access-Control-Allow-Methods" = "'*'",
-    "method.response.header.Access-Control-Allow-Origin"  = "'${local.site_domain}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'https://${local.site_domain}'"
   }
 }
 
@@ -93,7 +93,7 @@ resource "aws_api_gateway_integration_response" "proxy" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
     "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST'",
-    "method.response.header.Access-Control-Allow-Origin"  = "'${local.site_domain}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'https://${local.site_domain}'"
   }
 }
 
@@ -106,7 +106,7 @@ resource "aws_api_gateway_integration_response" "proxy_post" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
     "method.response.header.Access-Control-Allow-Methods" = "'*'",
-    "method.response.header.Access-Control-Allow-Origin"  = "'${local.site_domain}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'https://${local.site_domain}'"
   }
 }
 

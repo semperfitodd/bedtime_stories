@@ -4,6 +4,8 @@ This application creates a fun and interactive story creation platform. Inspired
 
 ## Architecture
 
+![architecture.png](images%2Farchitecture.png)
+
 - **Frontend:** React.js
 - **Backend:**
   - **API Gateway:** Handles API requests.
@@ -39,5 +41,6 @@ This application creates a fun and interactive story creation platform. Inspired
 1. Open the web application in your browser.
 2. Enter the characters and select a subject.
 3. Click "Create Story" to generate a story.
+![site.png](images%2Fsite.png)
 
 Enjoy the stories with your children!

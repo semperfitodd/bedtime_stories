@@ -13,7 +13,7 @@ module "dynamodb_table" {
     {
       name = "date"
       type = "S"
-    }]
+  }]
 
   tags = var.tags
 }

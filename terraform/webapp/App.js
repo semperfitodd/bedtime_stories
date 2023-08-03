@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
 function App() {
   const [characters, setCharacters] = useState('');
   const [subject, setSubject] = useState('sports');
   const [story, setStory] = useState('');
+  const [audioUrl, setAudioUrl] = useState('');
   const [loading, setLoading] = useState(false);
+  const audioRef = useRef(null);
 
   const subjects = ['sports', 'sci-fi', 'action', 'video games'];
+
+  const handlePlayAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
 
   const handleStoryCreation = async () => {
     setLoading(true);
     try {
-      const url = '<API_INVOKE_URL>/stories';
+      const url = '<INVOKE_URL>/stories';
       const payload = {
         characters: characters.split(',').map(c => c.trim()),
         subject
       };
-      // Including headers in the request
       const response = await axios.post(url, payload, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
       const responseData = response.data;
-      setStory(responseData.story); // Accessing the story field inside the body
+      setStory(responseData.story);
+      setAudioUrl(responseData.url);
     } catch (error) {
       console.error('Error creating story:', error);
       setStory('An error occurred while creating the story.');
@@ -57,6 +65,15 @@ function App() {
         <div>
           <h2>Story:</h2>
           <p>{story}</p>
+          {audioUrl && (
+            <div>
+              <button onClick={handlePlayAudio} className="play-story-button">Play Story</button>
+              <audio ref={audioRef} controls>
+                <source src={audioUrl} type="audio/mpeg" />
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+          )}
         </div>
       )}
     </div>

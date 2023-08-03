@@ -25,6 +25,44 @@ locals {
   }
 }
 
+module "polly_s3" {
+  source = "terraform-aws-modules/s3-bucket/aws"
+
+  bucket = "${local.site_domain}.polly"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+
+  control_object_ownership = true
+  object_ownership         = "BucketOwnerPreferred"
+
+  expected_bucket_owner = data.aws_caller_identity.this.account_id
+
+  lifecycle_rule = [
+    {
+      id                                     = "cleanup"
+      enabled                                = true
+      abort_incomplete_multipart_upload_days = 1
+
+      expiration = {
+        days = 3
+      }
+    }
+  ]
+
+  server_side_encryption_configuration = {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  tags = var.tags
+}
+
 module "site" {
   source = "terraform-aws-modules/s3-bucket/aws"
 

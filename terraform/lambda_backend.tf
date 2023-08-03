@@ -33,6 +33,22 @@ data "aws_iam_policy_document" "openai_lambda_policy" {
     ]
     resources = [aws_secretsmanager_secret.openai.arn]
   }
+  statement {
+    actions   = ["polly:SynthesizeSpeech"]
+    effect    = "Allow"
+    resources = ["*"]
+  }
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject"
+    ]
+    effect = "Allow"
+    resources = [
+      module.polly_s3.s3_bucket_arn,
+      "${module.polly_s3.s3_bucket_arn}/*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "openai_lambda_policy" {
@@ -71,7 +87,8 @@ resource "aws_lambda_function" "openai" {
 
   environment {
     variables = {
-      ENVIRONMENT = module.dynamodb_table.dynamodb_table_id
+      ENVIRONMENT  = module.dynamodb_table.dynamodb_table_id
+      POLLY_BUCKET = module.polly_s3.s3_bucket_id
     }
   }
 
@@ -122,7 +139,7 @@ resource "null_resource" "package_lambda" {
     EOF
   }
   triggers = {
-    requirements_hash     = filesha256("${path.module}/${local.backend_lambda_name}/requirements.txt")
+    requirements_hash    = filesha256("${path.module}/${local.backend_lambda_name}/requirements.txt")
     story_generator_hash = filesha256("${path.module}/${local.backend_lambda_name}/${local.backend_lambda_name}.py")
   }
 }

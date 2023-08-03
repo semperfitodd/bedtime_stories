@@ -13,7 +13,9 @@ As a parent eager to instill a love for reading in my son, I created this applic
 
 ## Technologies Used
 **React:** Frontend development for a seamless user interface.
+
 **Amazon Polly:** Text-to-speech service to create engaging audio narrations.
+
 **AWS Lambda, DynamoDB, S3:** Backend components for generating and storing stories.
 
 ## Why Serverless?

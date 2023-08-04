@@ -38,7 +38,7 @@ Kai's Stories aims to create an enjoyable reading environment that encourages cr
   - **API Gateway:** Handles API requests.
   - **Lambda:** Runs the story creation logic.
   - **DynamoDB:** Stores the generated stories.
-  - **Poly API:** Generates the story audibly.
+  - **Polly API:** Generates the story audibly.
 - **Infrastructure:**
   - **Route 53:** DNS management.
   - **ACM:** SSL certificate management.
